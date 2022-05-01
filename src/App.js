@@ -5,11 +5,11 @@ import SearchBar from "./components/SearchBar"
 
 
 function App() {
-  let [search, setSearch] = useState('');
-  let [data, setData] = useState([]);
+  let [search, setSearch] = useState("");
+  let [data, setData] = useState(null);
   let [ message, setMessage ] = useState('Capture Pokemon')
 
-  const Poke_URL = `https://pokeapi.co/api/v2/pokemon/`
+  const Poke_URL = `https://pokeapi.co/api/v2/pokemon`
 
   useEffect(() => {
     if (search) {
@@ -17,9 +17,10 @@ function App() {
           document.title = `${search} Pokemon`
           const response = await fetch (Poke_URL + search);
           const resData = await response.json();
-          console.log(resData)
-          if(resData.results.length > 0) {
-            setData(resData.results)
+          console.log(resData);
+          
+          if(resData) {
+            setData(resData)
           } else {
             setMessage('We have not discovered that Pokemon yet!')
           }
@@ -36,7 +37,8 @@ function App() {
   return (
     <Container>
       {message}
-         <SearchBar handleSearch = {handleSearch}></SearchBar>
+         <SearchBar handleSearch={handleSearch}></SearchBar>
+         <h1>{data}</h1>
     </Container>
     
   );

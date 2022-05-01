@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -6,25 +6,20 @@ import Button from "react-bootstrap/Button";
 
 
 const SearchBar = (props) => {
-  let [ searchTerm, setSearchTerm ] = useState('');
+
+  const [ term, setTerm ] = useState('');
+  
   return (
-    <div>
-      <form>
-        <label>Pokedex</label>
-        <input type="text" placeholder="I choose you" onChange={(e) => {
-          setSearchTerm(e.target.value)
-        }} />
-        <input type="submit" />
-      </form>
-    </div>
-    // <Container style={{margin: "30px"}}>
-    //     <Form>
-    //         <Form.Label>Choose your Pokemon!</Form.Label>
-    //         <Form.Control type="text" placeholder="I choose you!" />
-    //         <Button variant="primary" type="submit">Submit</Button>
-    //     </Form>
-    // </Container>
-  );
+    
+    <Container style={{margin: "30px"}}>
+        <Form>
+            <Form.Label>Choose your Pokemon!</Form.Label>
+            <Form.Control type="text" onChange={(e) =>  {setTerm(e.target.value) 
+              console.log(e.target.value) }} placeholder="I choose you!" />
+            <Button variant="primary" onClick={(e) => props.handleSearch(e, term)}  type="submit">Submit</Button>
+        </Form>
+    </Container>
+  )
 };
 
 export default SearchBar;
